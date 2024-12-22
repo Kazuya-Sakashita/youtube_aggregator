@@ -1,0 +1,26 @@
+<h1>YouTube Video Search</h1>
+
+<%= form_with url: search_videos_path, method: :get, local: true do %>
+  <div>
+    <%= label_tag :query, "Search for YouTube videos" %>
+    <%= text_field_tag :query, params[:query], placeholder: "Enter keywords" %>
+  </div>
+  <div>
+    <%= submit_tag "Search" %>
+  </div>
+<% end %>
+
+<% if @videos.present? %>
+  <h2>Search Results</h2>
+  <ul>
+    <% @videos.each do |video| %>
+      <li>
+        <strong><%= video[:title] %></strong><br>
+        Views: <%= video[:view_count] %><br>
+        <%= button_to "Save Video", videos_path, params: { video: video }, method: :post, form_class: "save-video-form" %>
+      </li>
+    <% end %>
+  </ul>
+<% elsif params[:query].present? %>
+  <p>No results found for "<%= params[:query] %>"</p>
+<% end %>

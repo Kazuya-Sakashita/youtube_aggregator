@@ -1,0 +1,16 @@
+<h1>Top Videos by View Count</h1>
+
+<% if @videos.present? %>
+  <ul>
+    <% @videos.each do |video| %>
+      <li>
+        <strong><%= video.title %></strong><br>
+        Views: <%= video.view_count %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No videos found. Try searching and saving some videos.</p>
+<% end %>
+
+<%= link_to "Search Videos", search_videos_path %>
