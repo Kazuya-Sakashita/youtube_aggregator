@@ -1,28 +1,32 @@
-<h1>YouTube Video Search</h1>
+<h1 class="page-title">YouTube Video Search</h1>
 
-<%= form_with url: search_videos_path, method: :get, local: true do %>
-  <div>
-    <%= label_tag :query, "Search for YouTube videos" %>
-    <%= text_field_tag :query, params[:query] || "浮気調査", placeholder: "Enter keywords" %>
+<%= form_with url: search_videos_path, method: :get, local: true, class: "search-form" do %>
+  <div class="form-group">
+    <%= label_tag :query, "Search for YouTube videos", class: "form-label" %>
+    <%= text_field_tag :query, params[:query], placeholder: "検索ワードを入力してください", class: "form-input" %>
   </div>
-  <div>
-    <%= submit_tag "Search" %>
+  <div class="form-group">
+    <%= submit_tag "Search", class: "btn-primary" %>
   </div>
 <% end %>
 
 <% if @videos.present? %>
-  <h2>Search Results</h2>
-  <ul>
+  <h2 class="section-title">Search Results</h2>
+  <ul class="video-list">
     <% @videos.each do |video| %>
-      <li>
-        <img src="<%= video[:thumbnail] %>" alt="<%= video[:title] %>" style="max-width: 200px; height: auto;">
-        <strong><%= video[:title] %></strong><br>
-        Views: <%= video[:view_count] %><br>
-        Description: <%= video[:description] %><br>
-        <%= button_to "Save Video", videos_path, params: { video: video }, method: :post %>
+      <li class="video-item">
+        <div class="video-thumbnail">
+          <img src="<%= video[:thumbnail] %>" alt="<%= video[:title] %>">
+        </div>
+        <div class="video-details">
+          <strong class="video-title"><%= video[:title] %></strong>
+          <p class="video-views">Views: <%= number_with_delimiter(video[:view_count]) %></p>
+          <p class="video-description"><%= truncate(video[:description], length: 80) %></p>
+          <%= button_to "Save Video", videos_path, params: { video: video }, method: :post, class: "btn-secondary" %>
+        </div>
       </li>
     <% end %>
   </ul>
 <% elsif params[:query].present? %>
-  <p>No results found for "<%= params[:query] %>"</p>
+  <p class="no-results">No results found for "<%= params[:query] %>"</p>
 <% end %>

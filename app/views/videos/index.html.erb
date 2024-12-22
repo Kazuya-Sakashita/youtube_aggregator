@@ -1,28 +1,24 @@
-<h1>Top Videos by View Count</h1>
+<h1 class="page-title">Top Videos by View Count</h1>
 
 <% if @videos.present? %>
-  <ul style="list-style: none; padding: 0;">
+  <ul class="video-list">
     <% @videos.each do |video| %>
-      <li style="margin-bottom: 20px; border-bottom: 1px solid #ccc; padding-bottom: 10px;">
-        <div style="display: flex; align-items: center;">
-          <!-- サムネイル画像 -->
-          <img src="<%= video.thumbnail %>" alt="<%= video.title %>" style="max-width: 120px; height: auto; margin-right: 20px;">
-
-          <div>
-            <!-- 動画タイトル -->
-            <strong><%= video.title %></strong><br>
-            <!-- 再生回数 -->
-            Views: <%= number_with_delimiter(video.view_count) %><br>
-            <!-- 説明文 -->
-            <p><%= truncate(video.description, length: 80) %></p>
-          </div>
+      <li class="video-item">
+        <div class="video-thumbnail">
+          <img src="<%= video.thumbnail %>" alt="<%= video.title %>">
+        </div>
+        <div class="video-details">
+          <strong class="video-title"><%= video.title %></strong>
+          <p class="video-views">Views: <%= number_with_delimiter(video.view_count) %></p>
+          <p class="video-description"><%= truncate(video.description, length: 80) %></p>
         </div>
       </li>
     <% end %>
   </ul>
 <% else %>
-  <p>No videos found. Try searching and saving some videos.</p>
+  <p class="no-videos">No videos found. Try searching and saving some videos.</p>
 <% end %>
 
-<!-- 検索ページへのリンク -->
-<%= link_to "Search Videos", search_videos_path, class: "btn btn-primary", style: "display: inline-block; margin-top: 20px;" %>
+<div class="search-link">
+  <%= link_to "Search Videos", search_videos_path, class: "btn-primary" %>
+</div>
