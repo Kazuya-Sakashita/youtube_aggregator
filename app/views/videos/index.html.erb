@@ -1,24 +1,43 @@
-<h1 class="page-title">Top Videos by View Count</h1>
+<h1 class="page-title">YouTube Video Search Results</h1>
 
 <% if @videos.present? %>
   <ul class="video-list">
     <% @videos.each do |video| %>
       <li class="video-item">
+        <!-- サムネイル画像とリンク -->
         <div class="video-thumbnail">
-          <img src="<%= video.thumbnail %>" alt="<%= video.title %>">
+          <% if video[:video_url].present? %>
+            <a href="<%= video[:video_url] %>" target="_blank" rel="noopener noreferrer">
+              <img src="<%= video[:thumbnail] %>" alt="<%= video[:title] %>">
+            </a>
+          <% else %>
+            <img src="<%= video[:thumbnail] %>" alt="<%= video[:title] %>">
+          <% end %>
         </div>
+        <!-- 動画の詳細情報 -->
         <div class="video-details">
-          <strong class="video-title"><%= video.title %></strong>
-          <p class="video-views">Views: <%= number_with_delimiter(video.view_count) %></p>
-          <p class="video-description"><%= truncate(video.description, length: 80) %></p>
+          <p class="video-title" title="<%= video[:title] %>">
+            <% if video[:video_url].present? %>
+              <a href="<%= video[:video_url] %>" target="_blank" rel="noopener noreferrer">
+                <%= truncate(video[:title], length: 50) %>
+              </a>
+            <% else %>
+              <%= truncate(video[:title], length: 50) %>
+            <% end %>
+          </p>
+          <p class="video-views">Views: <%= number_with_delimiter(video[:view_count]) %></p>
+          <p class="video-description"><%= truncate(video[:description], length: 80) %></p>
+          <!-- 保存ボタン -->
+          <%= button_to "Save Video", videos_path, method: :post, params: { video: video }, class: "btn-secondary save-button" %>
         </div>
       </li>
     <% end %>
   </ul>
 <% else %>
-  <p class="no-videos">No videos found. Try searching and saving some videos.</p>
+  <p class="no-results">No videos found. Try another search.</p>
 <% end %>
 
-<div class="search-link">
-  <%= link_to "Search Videos", search_videos_path, class: "btn-primary" %>
+<!-- サーチページへの遷移ボタン -->
+<div class="search-button-container">
+  <%= link_to "Go to Search Page", search_videos_path, class: "btn-primary search-page-button" %>
 </div>
