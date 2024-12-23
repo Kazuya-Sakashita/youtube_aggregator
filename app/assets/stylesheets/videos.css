@@ -1,7 +1,7 @@
 /* 全体の設定 */
 body {
   font-family: Arial, sans-serif;
-  background-color: #f7faff; /* 柔らかな青 */
+  background-color: #f9fbfd; /* 柔らかな青グレー */
   color: #333;
   margin: 0;
   padding: 20px;
@@ -105,12 +105,20 @@ body {
 }
 
 /* サムネイル画像 */
+.video-thumbnail {
+  margin-bottom: 10px;
+}
+
 .video-thumbnail img {
   width: 100%;
   max-height: 160px;
   border-radius: 5px;
   object-fit: cover;
-  margin-bottom: 10px;
+  transition: transform 0.2s;
+}
+
+.video-thumbnail img:hover {
+  transform: scale(1.05); /* ホバー時に拡大 */
 }
 
 /* 動画の詳細 */

@@ -55,8 +55,8 @@ class VideosController < ApplicationController
 
   # 動画保存アクション
   def create
-    # パラメータの許可
-    video_data = params.require(:video).permit(:video_id, :title, :view_count, :description, :thumbnail)
+    # 必要なパラメータを許可
+    video_data = params.require(:video).permit(:video_id, :title, :view_count, :description, :thumbnail, :video_url)
 
     # 動画情報を保存または更新
     video = Video.find_or_initialize_by(video_id: video_data[:video_id])
