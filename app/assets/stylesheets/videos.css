@@ -135,6 +135,7 @@ body {
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2; /* 標準プロパティ */
   -webkit-box-orient: vertical;
 }
 
@@ -152,6 +153,7 @@ body {
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+  line-clamp: 3; /* 標準プロパティ */
 }
 
 /* レスポンシブ対応 */
@@ -201,4 +203,30 @@ body {
 .search-page-button:hover {
   background-color: #0056b3;
   transform: scale(1.05); /* 少し拡大 */
+}
+
+/* 削除ボタンのスタイル */
+.btn-danger {
+  background-color: #e3342f;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-danger:hover {
+  background-color: #cc1f1a;
+}
+
+.btn-danger:focus {
+  outline: none;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+}
+
+.btn-danger:active {
+  background-color: #a71b15;
+  transform: scale(0.98);
 }

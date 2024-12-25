@@ -27,8 +27,9 @@
           </p>
           <p class="video-views">Views: <%= number_with_delimiter(video[:view_count]) %></p>
           <p class="video-description"><%= truncate(video[:description], length: 80) %></p>
-          <!-- 保存ボタン -->
-          <%= button_to "Save Video", videos_path, method: :post, params: { video: video }, class: "btn-secondary save-button" %>
+
+          <!-- 削除ボタン -->
+          <%= button_to "Delete Video", delete_video_video_path(video[:id]) ,  form: { data: { turbo_confirm: "本当に削除しますか？" } }, method: :delete , class: "btn-danger" %>
         </div>
       </li>
     <% end %>
