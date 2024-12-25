@@ -75,6 +75,24 @@ class VideosController < ApplicationController
     @videos = Video.order(view_count: :desc).limit(10)
   end
 
+    # 保存した動画削除アクション
+    def delete
+      video_id = params[:id]
+
+      if video_id.present?
+        video = Video.find_by(id: video_id)
+        if video&.destroy
+          flash[:notice] = "Video successfully deleted."
+        else
+          flash[:alert] = "Failed to delete the video."
+        end
+      else
+        flash[:alert] = "Video ID is required to delete a video."
+      end
+
+      redirect_to videos_path
+    end
+
   private
 
   # YouTube APIのサービス設定
